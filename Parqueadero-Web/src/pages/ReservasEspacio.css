@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+
+.reserva-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+
+  background-image: url("/parking-bg.jpg");
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+}
+
+.contenido {
+  position: relative;
+  z-index: 2;
+
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 40px;
+}
+
+.reserva-card {
+  width: 420px;
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.reserva-card h2 {
+  margin-bottom: 20px;
+}
+
+.inputs-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 8px;
+}
+
+button {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.parking-container {
+  color: white;
+  text-align: center;
+}
+
+.parking-grid {
+  margin-top: 20px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 80px);
+  gap: 12px;
+}
+
+.slot {
+  width: 80px;
+  height: 120px;
+
+  border-radius: 10px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: bold;
+}
+
+.ocupado {
+  background: crimson;
+}
+
+.libre {
+  background: seagreen;
+}

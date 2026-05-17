@@ -1,0 +1,38 @@
+.info-container{
+  min-height:100vh;
+
+  background-image:url("/parking-bg.jpg");
+  background-size:cover;
+  background-position:center;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.info-card{
+  width:500px;
+
+  padding:30px;
+  border-radius:20px;
+
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(10px);
+
+  text-align:center;
+}
+
+.campo{
+  margin-top:15px;
+}
+
+.campo input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+}
+
+.avatar{
+  font-size:40px;
+  margin:20px 0;
+}

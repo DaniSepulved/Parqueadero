@@ -1,0 +1,88 @@
+/* Fondo general */
+.pagos-bg {
+  min-height: 100vh;
+  background: #f4f6f9;
+}
+
+/* Header */
+.pagos-header {
+  width: 100%;
+  background: #d88c34;
+  color: white;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pagos-logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.pagos-bell {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* Contenedor */
+.pagos-container {
+  max-width: 1100px;
+  margin: 40px auto;
+  padding: 0 20px;
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Tarjetas */
+.pagos-card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 450px;
+}
+
+.pagos-tittle {
+  font-size: 20px;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+/* Métodos de pago */
+.metodo {
+  width: 100%;
+  padding: 14px 10px;
+  background: none;
+  border: none;
+  border-bottom: 1px solid #e1e1e1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.metodo:hover {
+  background: #f7f7f7;
+}
+
+.metodo-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.icono {
+  width: 26px;
+  height: 26px;
+}
+
+.metodo span {
+  color: #000 !important;
+}

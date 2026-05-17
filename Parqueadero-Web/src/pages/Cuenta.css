@@ -1,0 +1,112 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.cuenta-container{
+  position: relative;
+  min-height: 100vh;
+
+  background-image: url("/parking-bg.jpg");
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay{
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.35);
+}
+
+.cuenta-card{
+  position: relative;
+  z-index: 2;
+
+  width: 420px;
+  padding: 30px;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.18);
+  backdrop-filter: blur(12px);
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+
+  text-align: center;
+}
+
+.cuenta-card h1{
+  color: white;
+  margin-bottom: 20px;
+}
+
+.avatar{
+  width: 80px;
+  height: 80px;
+
+  margin: auto;
+  margin-bottom: 15px;
+
+  border-radius: 50%;
+  background: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 35px;
+}
+
+.bienvenida{
+  color: white;
+  margin-bottom: 20px;
+  font-weight: bold;
+}
+
+.btn-cuenta{
+  width: 100%;
+  border: none;
+  border-radius: 12px;
+
+  margin-bottom: 15px;
+  padding: 15px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-cuenta span{
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.info{
+  background: #1ba7a8;
+  color: white;
+}
+
+.editar{
+  background: white;
+  color: black;
+}
+
+.eliminar{
+  background: #d92c2c;
+  color: white;
+}
+
+.footer-text{
+  color: white;
+  font-size: 13px;
+  margin-top: 10px;
+}
