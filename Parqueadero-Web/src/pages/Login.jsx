@@ -4,7 +4,7 @@ import './Login.css';
 import { alertaError, alertaRedireccion, generaToken } from '../helpers/funciones';
 import { useAuth } from '../context/AuthContext'; 
 
-// URLs de las APIs para autenticación y registro. Cambia según tu entorno de desarrollo o producción.
+// URLs de las APIs para autenticación y registro
 let apiAuth = "http://localhost:8080/api/auth/login";
 let apiRegistro = "http://localhost:8080/api/usuarios";
 // let apiAuth = "https://proyecto-sena-9lzp.onrender.com/api/auth/login";
@@ -38,8 +38,9 @@ function Login() {
             return res.json();
         })
         .then((data) => {
-            // Llama a la función 'login' del contexto. Ella se encarga de localStorage y del estado global.
-            authLogin(data.token, data.email, data.role, data.nombre, data.apellido);
+            // Llama a la función 'login' del contexto.
+            console.log("Datos del backend:", data);
+            authLogin(data.token, data.email, data.role, data.nombre, data.apellido, data.id);
             alertaRedireccion("Bienvenido " + data.email, "/home", navigate);
         })
         .catch((err) => {
@@ -47,7 +48,7 @@ function Login() {
         });
     }
 
-    // Función para registrar un nuevo usuario. Se llama al hacer clic en el botón de registro.
+    // Función para registrar un nuevo usuario.
     function registrarUsuario() {
         fetch(apiRegistro, {
             method: "POST",

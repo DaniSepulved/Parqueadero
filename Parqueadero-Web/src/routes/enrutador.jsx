@@ -8,6 +8,7 @@ import Contacto from '../pages/Contacto'
 import Nequi from '../pages/payments/Nequi'
 import InformacionCuenta from '../pages/cuenta/InformacionCuenta'
 import ActualizarCuenta from '../pages/cuenta/ActualizarCuenta'
+import Tarjeta from '../pages/payments/Tarjeta'
 
 // Maneja las rutas de la aplicación, incluyendo rutas protegidas para usuarios autenticados.
 export let enrutador = [
@@ -25,7 +26,9 @@ export let enrutador = [
       { path: '/reservas', element: <ReservasEspacio /> },
       { path: '/contacto', element: <Contacto /> },
       { path: '/pagos', element: <Pagos /> },
-      { path: '/pagos/nequi', element: <Nequi /> }
+      { path: '/pagos/:id', element: <Pagos /> },
+      { path: '/pagos/nequi', element: <Nequi /> },
+      { path: '/pagos/tarjeta', element: <Tarjeta /> }
     ]
   },
 ];

@@ -10,7 +10,6 @@ import lombok.Data;
 public class ReservaDTO {
 
     // Identificador único de la reserva.
-    @NotNull
     private Long idReserva;
 
     // Identificador del usuario que realizó la reserva.
@@ -20,6 +19,9 @@ public class ReservaDTO {
     // Identificador del espacio de parqueo reservado.
     @NotNull
     private Long idTarifa;
+    
+    @NotNull
+    private Long idEspacio;
 
     // Identificador del usuario que realizó la reserva.
     @NotNull

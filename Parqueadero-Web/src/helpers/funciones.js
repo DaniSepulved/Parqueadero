@@ -46,21 +46,39 @@ export function generaToken() {
 }
 
 // Abre una ventana de doble confirmación con botones personalizados.
-export function eliminarCuenta() {
-  Swal.fire({
-    title: "¿Está seguro?",
-    text: "Esta acción eliminará su cuenta.",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonText: "Sí, eliminar",
-    cancelButtonText: "Cancelar"
+// export function eliminarCuenta() {
+//   Swal.fire({
+//     title: "¿Está seguro?",
+//     text: "Esta acción eliminará su cuenta.",
+//     icon: "warning",
+//     showCancelButton: true,
+//     confirmButtonText: "Sí, eliminar",
+//     cancelButtonText: "Cancelar"
+//   }).then((result) => {
+//     if (result.isConfirmed) {
+//       Swal.fire(
+//         "Eliminado",
+//         "La cuenta fue eliminada.",
+//         "success"
+//       );
+//     }
+//   });
+// }
+
+  export function confirmarPago() {
+    Swal.fire({
+        title: "¿Confirmar pago?",
+        text: "¿Desea confirmar el pago de su reserva?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sí, confirmar",
   }).then((result) => {
-    if (result.isConfirmed) {
-      Swal.fire(
-        "Eliminado",
-        "La cuenta fue eliminada.",
-        "success"
-      );
-    }
-  });
+        if (result.isConfirmed) {
+            Swal.fire(
+                "Pago confirmado",
+                "Su pago ha sido confirmado.",
+                "success"
+            );
+        }
+    });
 }

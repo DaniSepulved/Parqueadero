@@ -15,4 +15,8 @@ public class UsuarioLoginDTO {
     
     // Contraseña del usuario que intenta iniciar sesión.
     private String password;
+
+    private String nombre;
+
+    private String apellido;
 }

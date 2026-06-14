@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.Parqueadero.dto.ReservaDTO;
+import com.example.Parqueadero.model.EspaciosParqueo;
 import com.example.Parqueadero.model.Reservas;
 import com.example.Parqueadero.model.Tarifas;
 import com.example.Parqueadero.model.Usuarios;
+import com.example.Parqueadero.repository.EspaciosParqueoRepository;
 import com.example.Parqueadero.repository.ReservaRepository;
 import com.example.Parqueadero.repository.TarifaRepository;
 import com.example.Parqueadero.repository.UsuarioRepository;
@@ -31,6 +33,10 @@ public class ReservaServiceImpl implements ReservaService {
     @Autowired
     private TarifaRepository tarifaRepository;
 
+
+    @Autowired
+    private EspaciosParqueoRepository espaciosparqueorepository;
+
     // Método para crear una nueva reserva, que recibe un objeto ReservaDTO con los datos de la reserva a crear,
     // valida la información y guarda la reserva en la base de datos, devolviendo la reserva
     @Override
@@ -41,9 +47,13 @@ public class ReservaServiceImpl implements ReservaService {
         Tarifas tarifa = tarifaRepository.findById(dto.getIdTarifa().longValue())
             .orElseThrow(() -> new RuntimeException("Tarifa no encontrada"));
 
+        EspaciosParqueo espacio = espaciosparqueorepository.findById(dto.getIdEspacio().intValue())
+            .orElseThrow(() -> new RuntimeException("Espacio no encontrado"));
+
         Reservas reserva = Reservas.builder()
             .usuarios(usuario)
             .tarifas(tarifa)
+            .espaciosParqueo(espacio)
             .fechaReserva(dto.getFechaReserva())
             .horaInicio(dto.getHoraInicio())
             .horaFin(dto.getHoraFin())
@@ -52,7 +62,7 @@ public class ReservaServiceImpl implements ReservaService {
         Reservas reservaGuardada = reservaRepository.save(reserva);
 
         // Aquí podrías enviar la impresión
-        System.out.println("🧾 Reserva creada: " + reservaGuardada);
+        // System.out.println("🧾 Reserva creada: " + reservaGuardada); 
 
         return reservaGuardada;
     }

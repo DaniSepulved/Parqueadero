@@ -3,6 +3,7 @@ package com.example.Parqueadero.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +23,7 @@ import jakarta.validation.Valid;
 // Expone endpoints para crear, listar, buscar, actualizar y eliminar usuarios.
 @RestController
 @RequestMapping("/api/usuarios")
+@CrossOrigin(origins = "http://localhost:5173")
 public class UsuarioController {
     
     // Servicio que contiene la lógica de negocio
@@ -64,7 +66,7 @@ public class UsuarioController {
     // @param dto Nuevos datos del usuario
     // @return Usuario actualizado
     @PutMapping("/{id}")
-    public ResponseEntity<Usuarios> actualizar(@PathVariable Long id, @Valid @RequestBody UsuarioDTO dto) {
+    public ResponseEntity<Usuarios> actualizar(@PathVariable Long id, @RequestBody UsuarioDTO dto) {
         return ResponseEntity.ok(usuarioService.actualizar(id, dto));
     }
 

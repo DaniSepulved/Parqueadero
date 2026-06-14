@@ -23,13 +23,14 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     // Registra el inicio de sesión
-    const login = (token, email, role, nombre, apellido) => {
+    const login = (token, email, role, nombre, apellido, id) => {
         localStorage.setItem('token', token);
         localStorage.setItem('usuario', email);
         localStorage.setItem('rol', role);
 
         localStorage.setItem('nombre', nombre);
         localStorage.setItem('apellido', apellido);
+        localStorage.setItem('idUsuario', id);
 
         setIsAuthenticated(true);
         setUserRole(role);

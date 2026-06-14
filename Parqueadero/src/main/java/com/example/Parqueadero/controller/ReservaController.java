@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 // Controlador REST encargado de gestionar las operaciones CRUD de reservas.
 // Expone endpoints para crear, listar, buscar y eliminar reservas.
@@ -22,8 +24,18 @@ public class ReservaController {
     // Crea una nueva reserva.
     // @param dto Datos de la reserva a crear
     @PostMapping
-    public ResponseEntity<Reservas> crearReserva(@RequestBody ReservaDTO dto) {
-        return ResponseEntity.ok(reservaService.crearReserva(dto));
+    public ResponseEntity<?> crearReserva(@RequestBody ReservaDTO dto) {
+        // 1. Llama al servicio común y corriente para que guarde en la BD
+        Reservas reservaCreada = reservaService.crearReserva(dto);
+        
+        // 2. Construimos una respuesta limpia solo con los datos primitivos necesarios
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("idReserva", reservaCreada.getIdReserva());
+        respuesta.put("fechaReserva", reservaCreada.getFechaReserva());
+        respuesta.put("mensaje", "Reserva creada con éxito en el backend");
+        
+        // 3. Retornamos el mapa plano
+        return ResponseEntity.ok(respuesta);
     }
 
     // Lista todas las reservas registradas.

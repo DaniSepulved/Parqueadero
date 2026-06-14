@@ -9,7 +9,7 @@ import lombok.Data;
 public class EspaciosParqueoDTO {
 
     // Identificador único del espacio de parqueo.
-    private Long idEspacio;
+    private Integer idEspacio;
 
     // Ubicación del espacio de parqueo dentro del parqueadero (ejemplo: "Nivel 1 - Zona A").
     @NotBlank

@@ -55,7 +55,9 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuarios.setPassword(passwordEncoder.encode(dto.getPassword()));
         }
 
-        usuarios.setRol(dto.getRol());
+        if (dto.getRol() != null) {
+            usuarios.setRol(dto.getRol());
+        }
 
         return usuarioRepository.save(usuarios);
     }

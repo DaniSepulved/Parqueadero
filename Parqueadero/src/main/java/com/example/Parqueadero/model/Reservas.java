@@ -3,6 +3,8 @@ package com.example.Parqueadero.model;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,16 +29,19 @@ public class Reservas {
     // Relación con la entidad Usuarios (muchas reservas pueden pertenecer a un usuario).
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
+    @JsonIgnore
     private Usuarios usuarios;
 
     // Relación con la entidad EspaciosParqueo (cada reserva está asociada a un espacio de parqueo).
     @ManyToOne
     @JoinColumn(name = "idEspacio", nullable = false)
+    @JsonIgnore
     private EspaciosParqueo espaciosParqueo;
 
     // Relación con la entidad Tarifas (cada reserva tiene una tarifa asociada).
     @ManyToOne
     @JoinColumn(name = "idTarifa", nullable = false)
+    @JsonIgnore
     private Tarifas tarifas;
 
     // Fecha de la reserva.

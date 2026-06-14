@@ -1,5 +1,6 @@
 package com.example.Parqueadero.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,18 +36,25 @@ public class AuthController {
      * Endpoint para iniciar sesión y obtener el token JWT.
      * UsuarioLoginDTO con las credenciales del usuario (email y password).
      */
-    @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody UsuarioLoginDTO loginUser) {
-        try {
-            // Instancia un objeto temporal de tipo Usuario para el proceso de validación
-            Usuarios usuario = new Usuarios(loginUser.getEmail(), loginUser.getPassword());
-            Usuarios usuarioAutenticado = authService.login(usuario);
+@PostMapping("/login")
+public ResponseEntity<Map<String, Object>> login(@RequestBody UsuarioLoginDTO loginUser) {
+    try {
+        Usuarios usuario = new Usuarios(loginUser.getEmail(), loginUser.getPassword());
+        Usuarios usuarioAutenticado = authService.login(usuario);
 
-            // Generación exitosa del Token de acceso JWT
-            String token = jwtUtil.generateToken(usuarioAutenticado);
-            return ResponseEntity.ok(Map.of(
-                "token", token
-            ));
+        String token = jwtUtil.generateToken(usuarioAutenticado);
+        
+        // Creamos el mapa explícitamente como <String, Object>
+        Map<String, Object> respuesta = new HashMap<>();
+        respuesta.put("token", token);
+        respuesta.put("id", usuarioAutenticado.getIdUsuario());
+        respuesta.put("email", usuarioAutenticado.getEmail());
+        respuesta.put("nombre", usuarioAutenticado.getNombre());
+        respuesta.put("apellido", usuarioAutenticado.getApellido());
+        respuesta.put("role", usuarioAutenticado.getRol() != null ? usuarioAutenticado.getRol().name() : "EMPLEADO");
+        
+        return ResponseEntity.ok(respuesta);
+
         } catch (AuthenticationException ex) {
             return ResponseEntity.status(401).body(Map.of("message", ex.getMessage()));
         } catch (Exception ex) {

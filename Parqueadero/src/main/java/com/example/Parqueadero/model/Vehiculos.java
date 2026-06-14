@@ -1,5 +1,7 @@
 package com.example.Parqueadero.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -44,6 +46,7 @@ public class Vehiculos {
     // Relación con la entidad Usuarios (muchos vehículos pueden pertenecer a un usuario).
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
+    @JsonIgnore
     private Usuarios usuario;
 
     // Método para verificar si el vehículo tiene campos vacíos o nulos (útil para validaciones).

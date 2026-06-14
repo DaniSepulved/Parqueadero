@@ -1,5 +1,6 @@
 import "./Nequi.css";
 import { Link } from "react-router-dom";
+import { confirmarPago } from "../../helpers/funciones";
 
 // Representa la interfaz de pasarela simulada para pagos a través de cuentas Nequi.
 function Nequi() {
@@ -36,8 +37,12 @@ function Nequi() {
           </p>
 
           <div className="nequi-buttons">
-            <button className="nequi-cancel">CANCELAR</button>
-            <button className="nequi-continue">CONTINUAR</button>
+            <button className="nequi-cancel">
+              <Link to="/pagos">CANCELAR</Link>
+            </button>
+            <button className="nequi-continue" onClick={confirmarPago}>
+              CONTINUAR
+            </button>
           </div>
         </div>
       </div>

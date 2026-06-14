@@ -2,6 +2,8 @@ package com.example.Parqueadero.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -45,7 +47,8 @@ public class Usuarios {
     private Rol rol;
 
     // Relación con la entidad Vehiculos (un usuario puede tener varios vehículos).
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Vehiculos> vehiculos;
 
     // Relación con la entidad Reservas (un usuario puede tener varias reservas).

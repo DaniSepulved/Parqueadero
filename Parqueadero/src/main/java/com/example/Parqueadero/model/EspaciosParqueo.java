@@ -18,7 +18,7 @@ public class EspaciosParqueo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "idEspacio")
-    private Long idEspacio;
+    private Integer idEspacio;
 
     // Ubicación del espacio de parqueo (ejemplo: "Nivel 1 - Espacio 5").
     @Column(name = "ubicacion", nullable = false)
