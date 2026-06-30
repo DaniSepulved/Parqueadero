@@ -6,7 +6,7 @@ import "./ActualizarCuenta.css";
 const ActualizarCuenta = () => {
   const navigate = useNavigate();
 
-  // 1. Definimos los estados para amarrar los valores de tus inputs
+  // Estados locales para manejar los datos del usuario y la carga inicial
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [correo, setCorreo] = useState("");
@@ -16,7 +16,7 @@ const ActualizarCuenta = () => {
   const idUsuarioLogueado = localStorage.getItem("idUsuario");
   const token = localStorage.getItem("token");
 
-  // 2. Cargamos los datos actuales del usuario al abrir la pantalla
+  // Permite cargar los datos del usuario desde la API al montar el componente
   useEffect(() => {
     const cargarDatosUsuario = async () => {
       if (!idUsuarioLogueado) {
@@ -36,7 +36,8 @@ const ActualizarCuenta = () => {
 
         if (response.ok) {
           const user = await response.json();
-          // Mapeamos lo que devuelva tu base de datos a los inputs
+
+          // Se mapean los datos del usuario a los estados locales para que se muestren en los inputs
           setNombre(user.nombre || "");
           setApellido(user.apellido || "");
           setCorreo(user.email || "");
@@ -52,9 +53,9 @@ const ActualizarCuenta = () => {
     cargarDatosUsuario();
   }, [idUsuarioLogueado, token, navigate]);
 
-  // 3. Función para enviar los cambios con el método PUT
+  // Función que se ejecuta al hacer clic en "Guardar Cambios", enviando los datos modificados al backend
   const handleGuardarCambios = async (e) => {
-    e.preventDefault(); // Evita que se recargue la página si metes el botón en un form
+    e.preventDefault();
 
     if (!nombre || !correo) {
       alert("El nombre y el correo electrónico son campos obligatorios.");
@@ -82,8 +83,8 @@ const ActualizarCuenta = () => {
         throw new Error("Error al actualizar la información en el servidor");
       }
 
-      alert("¡Tus datos se han actualizado correctamente! 💾");
-      navigate("/cuenta"); // Lo mandamos de vuelta a la gestión de cuenta
+      alert("¡Tus datos se han actualizado correctamente!");
+      navigate("/cuenta"); 
 
     } catch (error) {
       console.error(error);
@@ -104,7 +105,7 @@ const ActualizarCuenta = () => {
       <div className="actualizar-card">
         <h1>Datos del Usuario</h1>
 
-        {/* Agregamos el value y el onChange a cada uno de tus inputs originales */}
+        {/* Inputs para los datos del usuario */}
         <input 
           type="text" 
           placeholder="Nombre completo" 
@@ -129,12 +130,11 @@ const ActualizarCuenta = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        {/* Le asignamos el evento del clic a tu botón */}
         <button onClick={handleGuardarCambios}>
           Guardar Cambios
         </button>
 
-        <Link to="/cuenta" style={{ color: "#aaa", textDecoration: "none", fontSize: "14px", marginTop: "15px", display: "block", textAlign: "center" }}>
+        <Link to="/cuenta" className="btn-cancelar">
           Cancelar y regresar
         </Link>
       </div>

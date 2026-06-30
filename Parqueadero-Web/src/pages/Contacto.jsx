@@ -62,7 +62,7 @@ const Contacto = () => {
           loading="lazy"
         ></iframe>
       </div>
-      {/* <ChatBotWidget /> */}
+      <ChatBotWidget /> 
       <Footer />
     </>
   );

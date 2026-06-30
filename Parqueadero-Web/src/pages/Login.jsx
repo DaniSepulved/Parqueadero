@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import { alertaError, alertaRedireccion, generaToken } from '../helpers/funciones';
+import { alertaError, alertaRedireccion, generaToken, cuentaCreada } from '../helpers/funciones';
 import { useAuth } from '../context/AuthContext'; 
 
 // URLs de las APIs para autenticación y registro
@@ -75,6 +75,7 @@ function Login() {
             setPassword('');
             // Redirigir al usuario al login para que inicie sesión con su nueva cuenta
             alertaRedireccion("Registro exitoso", "/home", navigate);
+            // cuentaCreada("Registro exitoso");
         })
         .catch(err => {
             alertaError("Error", err.message || "Error al registrar usuario", "error");

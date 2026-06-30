@@ -1,5 +1,7 @@
 package com.example.Parqueadero.services.impl;
 
+import java.time.LocalDateTime;
+import java.time.Duration;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,9 +63,6 @@ public class ReservaServiceImpl implements ReservaService {
 
         Reservas reservaGuardada = reservaRepository.save(reserva);
 
-        // Aquí podrías enviar la impresión
-        // System.out.println("🧾 Reserva creada: " + reservaGuardada); 
-
         return reservaGuardada;
     }
 
@@ -78,8 +77,44 @@ public class ReservaServiceImpl implements ReservaService {
     // buscar el registro en la base de datos.
     @Override
     public Reservas obtenerReservaPorId(Long id) {
-        return reservaRepository.findById(id)
+        Reservas reserva = reservaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Reserva no encontrada"));
+        
+        // Calculamos el total de forma inteligente antes de responderle a React
+        double totalPagar = calcularTotalEstadia(reserva);
+        reserva.setTotalPagar(totalPagar); 
+        
+        return reserva;
+    }
+
+    public double calcularTotalEstadia(Reservas reserva) {
+        if(reserva.getPagos() != null) {
+            return reserva.getPagos().getMonto();
+        }
+        Tarifas tarifa = reserva.getTarifas();
+        if (tarifa == null || reserva.getHoraInicio() == null || reserva.getHoraFin() == null) {
+            return 0.0;
+        }
+        LocalDateTime inicio = reserva.getHoraInicio();
+        LocalDateTime fin = reserva.getHoraFin();
+
+        long minutosTotales = Duration.between(inicio, fin).toMinutes();
+        if (minutosTotales <= 0) return 0.0;
+
+        double horasTotales = minutosTotales / 60.0;
+
+        int diasCompletos = (int) (horasTotales / 24);
+        int horasRestantes = (int) Math.ceil(horasTotales % 24);
+
+        double costoDia = tarifa.getCostoDia(); 
+        double costoHora = tarifa.getCostoHora();
+
+        if ((horasRestantes * costoHora) >= costoDia) {
+            diasCompletos += 1;
+            horasRestantes = 0;
+        }
+
+        return (diasCompletos * costoDia) + (horasRestantes * costoHora);
     }
 
     // Método para eliminar una reserva por su ID, que utiliza el repositorio 

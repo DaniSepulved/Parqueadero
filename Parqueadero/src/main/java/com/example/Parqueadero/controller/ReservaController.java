@@ -25,16 +25,16 @@ public class ReservaController {
     // @param dto Datos de la reserva a crear
     @PostMapping
     public ResponseEntity<?> crearReserva(@RequestBody ReservaDTO dto) {
-        // 1. Llama al servicio común y corriente para que guarde en la BD
+        
+        // Separación de la lógica de creación de reserva y la construcción de la respuesta para evitar problemas de serialización.
         Reservas reservaCreada = reservaService.crearReserva(dto);
         
-        // 2. Construimos una respuesta limpia solo con los datos primitivos necesarios
+        // Construcción de un mapa plano para la respuesta, evitando la serialización de objetos complejos que podrían causar problemas.
         Map<String, Object> respuesta = new HashMap<>();
         respuesta.put("idReserva", reservaCreada.getIdReserva());
         respuesta.put("fechaReserva", reservaCreada.getFechaReserva());
         respuesta.put("mensaje", "Reserva creada con éxito en el backend");
         
-        // 3. Retornamos el mapa plano
         return ResponseEntity.ok(respuesta);
     }
 

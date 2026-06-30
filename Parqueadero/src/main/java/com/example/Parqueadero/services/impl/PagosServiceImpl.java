@@ -22,6 +22,7 @@ public class PagosServiceImpl implements PagosService {
 
     private final PagosRepository pagosRepository;
     private final ReservaRepository reservaRepository;
+    private final ReservaServiceImpl reservaService;
 
     private PagosDTO toDTO(Pagos pagos) {
     return new PagosDTO(
@@ -40,13 +41,16 @@ public class PagosServiceImpl implements PagosService {
  
         Pagos pagos = new Pagos();
         pagos.setReservas(reserva);
-        pagos.setMonto(dto.getMonto());
-        pagos.setFechaPago(dto.getFechaPago());
+        double montoCalculado = reservaService.calcularTotalEstadia(reserva);
+        pagos.setMonto(montoCalculado);
+
+        pagos.setFechaPago(dto.getFechaPago() != null ? dto.getFechaPago() : LocalDate.now());
+
         pagos.setMetodoPago(dto.getMetodoPago());
         return pagos;
     }
     
-        // ─── CRUD ─────────────────────────────────────────────────────────────────
+        // ─── CRUD ───
  
     @Override
     public PagosDTO crearPago(PagosDTO pagoDTO) {

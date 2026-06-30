@@ -106,7 +106,7 @@ const Home = () => {
         </footer>
       </div>
     </div>
-    {/* <ChatBotWidget />  */}
+    <ChatBotWidget />
   </>
   );
 };

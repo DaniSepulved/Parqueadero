@@ -86,3 +86,12 @@
 .actualizar-card button:hover {
   transform: scale(1.03);
 }
+
+.btn-cancelar {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 15px;
+  display: block;
+  text-align: center;
+}

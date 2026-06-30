@@ -11,10 +11,18 @@ const ReservasEspacio = () => {
   const [fechaSalida, setFechaSalida] = useState("");
   const [horaSalida, setHoraSalida] = useState("");
   const [tipoVehiculo, setTipoVehiculo] = useState("Moto");
-
   const [espacioSeleccionado, setEspacioSeleccionado] = useState(null);
 
   const espacios = Array.from({ length: 12 }, (_, i) => i + 1);
+
+  const obtenerIdTarifa = (vehiculo) => {
+    switch (vehiculo) {
+      case "Moto": return 1;
+      case "Carro": return 2;
+      case "Bus": return 3;
+      default: return 1;
+    }
+  };
 
 const crearReserva = async () => {
     if (!fechaEntrada || !horaEntrada || !fechaSalida || !horaSalida) {
@@ -27,7 +35,6 @@ const crearReserva = async () => {
     }
 
     const idUsuarioLogueado = localStorage.getItem('idUsuario');
-    // 1. Recuperamos también el TOKEN que guardamos al iniciar sesión
     const token = localStorage.getItem('token'); 
 
     if (!idUsuarioLogueado) {
@@ -37,7 +44,7 @@ const crearReserva = async () => {
 
     const reserva = {
         idUsuario: parseInt(idUsuarioLogueado),
-        idTarifa: 1, 
+        idTarifa: obtenerIdTarifa(tipoVehiculo),
         idEspacio: espacioSeleccionado,
         fechaReserva: fechaEntrada,
         horaInicio: `${fechaEntrada}T${horaEntrada}:00`,
@@ -51,7 +58,6 @@ const crearReserva = async () => {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              // 2. LE PASAMOS EL TOKEN EN LOS HEADERS PARA QUITAR EL ERROR 401
               "Authorization": `Bearer ${token}` 
             },
             body: JSON.stringify(reserva)
@@ -155,61 +161,3 @@ const crearReserva = async () => {
 };
 
 export default ReservasEspacio;
-
-
-
-// const ReservasEspacio = () => {
-//   // Instanciación de una colección de control
-//   const espacios = Array.from({ length: 12 }, (_, i) => i + 1); // Simula 12 espacios de parqueo
-
-//   return (
-//     <>
-//     <div className="reserva-container">
-//       <div className="overlay"></div>
-
-//       <div className="contenido">
-        
-//         {/* Formulario */}
-//         <div className="reserva-card">
-//           <h2>RESERVA TU ESPACIO AHORA</h2>
-
-//           <div className="inputs-grid">
-//             <input type="date" />
-//             <input type="time" />
-//             <input type="date" />
-//             <input type="time" />
-//           </div>
-
-//           <select>
-//             <option>Moto</option>
-//             <option>Carro</option>
-//             <option>Bus</option>
-//           </select>
-
-//           <button>BUSCAR DISPONIBILIDAD</button>
-//         </div>
-
-//         {/* Parqueadero */}
-//         <div className="parking-container">
-//           <h3>Selecciona tu espacio</h3>
-
-//           <div className="parking-grid">
-//             {espacios.map((_, i) => (
-//               <div
-//                 key={i}
-//                 className={`slot ${i < 5 ? "ocupado" : "libre"}`}
-//               >
-//                 {i + 1}
-//               </div>
-//             ))}
-//           </div>
-//         </div>
-
-//       </div>
-//     </div>
-//     <Footer />
-//   </>  
-//   );
-// };
-
-// export default ReservasEspacio;

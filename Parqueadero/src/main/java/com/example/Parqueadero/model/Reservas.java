@@ -57,6 +57,10 @@ public class Reservas {
     private LocalDateTime horaFin;
 
     // Relación con la entidad Pago (cada reserva tiene un pago asociado).
-    // @OneToOne(mappedBy = "reserva", cascade = CascadeType.ALL)
-    // private Pago pago;
+    @OneToOne(mappedBy = "reservas", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private Pagos pagos;
+
+    @Transient
+    private double totalPagar; 
 }

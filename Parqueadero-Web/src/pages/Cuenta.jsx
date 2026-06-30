@@ -1,6 +1,7 @@
 import "./Cuenta.css";
 import Footer from '../components/Footer';
 import { Link, useNavigate } from "react-router-dom"; // Importamos useNavigate
+import ChatBotWidget from '../components/ChatBotWidget';
 
 const Cuenta = () => {
   const navigate = useNavigate();
@@ -75,6 +76,7 @@ const Cuenta = () => {
         </div>
       </div>
       <Footer />
+      <ChatBotWidget />
     </>
   );
 };

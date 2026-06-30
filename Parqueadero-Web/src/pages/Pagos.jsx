@@ -2,18 +2,19 @@ import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./Pagos.css";
 import Footer from '../components/Footer';
+import ChatBotWidget from '../components/ChatBotWidget';
 
 function Pagos() {
-    // 1. Capturamos el ID de la reserva desde la URL dinámica (/pagos/:id)
+    //Se obtiene el ID de la reserva desde la URL para cargar los detalles específicos del pago.
     const { id } = useParams(); 
     
-    // 2. Estados para manejar los datos, la carga y posibles errores
+    // Estados locales para manejar la reserva, carga y errores.
     const [reserva, setReserva] = useState(null);
     const [cargando, setCargando] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        // Si no hay un ID en la URL (entraron directo a /pagos), dejamos de cargar
+        // Si no hay ID en la URL, no intentamos cargar nada.
         if (!id) {
             setCargando(false);
             return;
@@ -27,7 +28,7 @@ function Pagos() {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "Authorization": `Bearer ${token}` // Pasamos el JWT para que no de 401
+                        "Authorization": `Bearer ${token}`
                     }
                 });
 
@@ -36,7 +37,7 @@ function Pagos() {
                 }
 
                 const data = await response.json();
-                setReserva(data); // Guardamos la reserva real traída de MySQL
+                setReserva(data); 
             } catch (err) {
                 console.error(err);
                 setError(err.message);
@@ -48,7 +49,6 @@ function Pagos() {
         obtenerDetallesReserva();
     }, [id]);
 
-    // 3. Renderizado en estados de carga o error
     if (cargando) {
         return <div className="pagos-bg"><div className="pagos-container"><h2 style={{color: 'white'}}>Cargando detalles del pago...</h2></div></div>;
     }
@@ -64,19 +64,19 @@ function Pagos() {
                 <header className='pagos-header'>
                     <h1 className='pagos-logo'>ParqueaderoSC</h1>
                     <Link to="/home" className="btn-regresar">
-                        ← Regresar
+                        Regresar
                     </Link> 
                 </header>
                 
                 <div className='pagos-container'>
-                    {/* Tarjeta izquierda: Resumen DINÁMICO */}
+                    {/* Tarjeta izquierda */}
                     <div className='pagos-card'>
                         <h2 className='pagos-tittle'>Detalles</h2>
                         {reserva ? (
                             <>
                                 <p><strong>Tipo de servicio: </strong>Reservas de Parqueo</p>
                                 {/* El monto lo puedes calcular dinámicamente o dejar base si manejas tarifa fija */}
-                                <p><strong>Monto a pagar:</strong> $7.500</p> 
+                                <p><strong>Monto a pagar:</strong> {reserva.totalPagar ? `$${reserva.totalPagar.toLocaleString('es-CO')}` : "$0"}</p>
                                 <p><strong>Fecha:</strong> {reserva.fechaReserva || "No especificada"}</p>
                                 <p><strong>Espacio:</strong> Slot {reserva.espaciosParqueo?.numero || id} </p>
                                 <p><strong>Factura / ID Reserva:</strong> #000{reserva.idReserva}</p>
@@ -88,7 +88,7 @@ function Pagos() {
                         )}
                     </div>
 
-                    {/* Tarjeta derecha: Listado de pasarelas */}
+                    {/* Tarjeta derecha */}
                     <div className='pagos-card'>
                         <h2 className='pagos-tittle'>Metodo de pago</h2>
                         
@@ -127,6 +127,7 @@ function Pagos() {
                 </div>
             </div> 
             <Footer />
+            <ChatBotWidget />
         </>
     );
 }

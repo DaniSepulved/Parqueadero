@@ -31,6 +31,16 @@ export function alertaRedireccion(mensaje, url, redireccion) {
     });
 }
 
+export function cuentaCreada() {
+    Swal.fire({
+        title: "Cuenta creada",
+        text: "Su cuenta ha sido creada exitosamente.",
+        icon: "success",
+        showConfirmButton: false,
+        timerProgressBar: true
+    });
+}
+
 // Muestra una ventana emergente estática para notificar estados como errores
 export function alertaError(titulo, mensaje, icono) {
     Swal.fire({
